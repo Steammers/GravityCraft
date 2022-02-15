@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}{{ current_server.name }} | Минимальные цены{% endblock %}
+{% load tags %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-8">
+
+        </div>
+    </div>
+    {#    {% for mod in mods %}#}
+    {#        <div class="row row-cols-1 row-cols-md-6 g-4 mb-2">#}
+    {#            {% for item in mod|server_items:current_server %}#}
+    {#                <div class="col">#}
+    {#                    <div class="card h-100">#}
+    {#                        <div class="card-header text-center">{{ item.name }}</div>#}
+    {#                        <div class="card-body text-center">#}
+    {#                            {% if item.image %}#}
+    {#                            <img class="" src="{{ item.image.url }}" width="50" height="50">#}
+    {#                            {% endif %}#}
+    {#                        </div>#}
+    {#                        <div class="card-footer">#}
+    {#                            <h6 class="text-center">50000 <i class="bi bi-coin"></i> за 1 шт.</h6>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            {% endfor %}#}
+    {#        </div>#}
+    {#    {% endfor %}#}
+
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-center"><i class="bi bi-list"></i> Быстрый переход к категории</h6>
+                    <hr>
+                    {% for mod in mods %}
+                        <h6><a href="#{{ mod.name }}" class="text-decoration-none text-dark fst-italic"><i class="bi bi-arrow-right-circle"></i> {{ mod.name }}</a></h6>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    {% for mod in mods %}
+                        <h5 id="{{ mod }}"><i class="bi bi-gear"></i> {{ mod }}</h5>
+{#                        <hr>#}
+                        <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width: 70%">Предмет</th>
+                                <th style="width: 30%" class="text-center">Минимальная цена</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in mod|server_items:current_server %}
+                            <tr id="{{ item.id }}">
+                                <td>{% if item.image %}<img src="{{ item.image.url }}" width="25" height="25"
+                                                       alt="">{% endif %} {{ item.name }}</td>
+                                <td class="text-center">{{ item.minimum_price }} <i class="bi bi-coin text-danger"></i> за {{ item.count }} шт.</td>
+                            </tr>
+                                 {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
